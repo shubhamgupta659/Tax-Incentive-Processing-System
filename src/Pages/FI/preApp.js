@@ -164,7 +164,7 @@ const PreAppForm = () => {
                     </Form.Item>
                     <Form.Item
                         key={3} // Add a unique key for each Form.Item component
-                        label="Instition Name"
+                        label="Institution Name"
                         name={`institutionName`} // Use a unique name for each Form.Item component
                         rules={[
                             { required: true, message: 'Please enter the name of institution' },
@@ -174,7 +174,7 @@ const PreAppForm = () => {
                     </Form.Item>
                     <Form.Item
                         key={4} // Add a unique key for each Form.Item component
-                        label="Instition Code"
+                        label="Institution Code"
                         name={`institutionCode`} // Use a unique name for each Form.Item component
                         rules={[
                             { required: true, message: 'Please enter the name of institution' },

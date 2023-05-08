@@ -63,7 +63,7 @@ function LOAViewAction() {
                         <div className='view-form-container'>
                             <div className='view-form-header'>
                                 <h2>LOA Details</h2>
-                                <div className="view-back-button-container"><Tooltip title="Download LOA"><Button shape="round" icon={<DownloadOutlinedIcon />} size={size} /></Tooltip></div>
+                                <LoaDownload appStatus={state.appStatus} />
                             </div>
                             <div className='view-form-sep'><hr></hr></div>
 
@@ -147,6 +147,11 @@ function LOAViewAction() {
         </div>
     );
 };
+
+const LoaDownload = (props) => {
+    const [size] = useState('small');
+    return (props.appStatus === 'LOA Released' || props.appStatus === 'LOA Ack') ? <div className="view-back-button-container"><Tooltip title="Download LOA"><Button shape="round" icon={<DownloadOutlinedIcon />} size={size} /></Tooltip></div> : <div></div>;
+}
 
 const ActionCont = (props) => {
     if ((props.stage === 'fiDash' && (props.casedata.appStatus === 'LOA Released'))
