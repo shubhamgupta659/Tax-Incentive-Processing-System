@@ -1,6 +1,6 @@
 const BgColorForAppStatus = (appStatus) => {
     return appStatus === 'Submitted'
-        ? '#FDD835'
+        ? '#FFC107'
         : appStatus === 'Draft'
             ? '#8D6E63'
             : appStatus === 'Pending'

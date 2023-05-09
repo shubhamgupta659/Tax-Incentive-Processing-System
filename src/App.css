@@ -434,6 +434,7 @@ footer__links {
   background: #fafafa;
   border-radius: 8px;
   min-height: 50vw;
+  height : 100%;
 }
 
 .view-form-header {

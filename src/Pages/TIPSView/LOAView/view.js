@@ -9,6 +9,7 @@ import moment from 'moment';
 import { AuthContext } from '../../../AuthContext';
 import AppFormStatusPane from '../../AppFormStatusPane';
 import GetAppStatusId from '../../../Components/CommonFunction/appstatus';
+import html2pdf from 'html2pdf.js';
 
 const { TextArea } = Input;
 
@@ -67,7 +68,7 @@ function LOAViewAction() {
                             </div>
                             <div className='view-form-sep'><hr></hr></div>
 
-                            <div className='view-form-content'>
+                            <div className='view-form-content' id="htmlElementId">
                                 <p>Dear &nbsp;<b>{state.preAppData.applicantName}</b></p>
                                 <p></p>
                                 <p>APPLICATION FOR ENHANCED-TIER FUND TAX INCENTIVE SCHEME</p>
@@ -150,7 +151,20 @@ function LOAViewAction() {
 
 const LoaDownload = (props) => {
     const [size] = useState('small');
-    return (props.appStatus === 'LOA Released' || props.appStatus === 'LOA Ack') ? <div className="view-back-button-container"><Tooltip title="Download LOA"><Button shape="round" icon={<DownloadOutlinedIcon />} size={size} /></Tooltip></div> : <div></div>;
+    const downloadButtonHandler = () => {
+        const element = document.getElementById('htmlElementId'); // Replace 'htmlElementId' with the ID of the HTML element you want to convert to PDF
+
+        const opt = {
+            margin: 1,
+            filename: 'loa.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+        };
+
+        html2pdf().set(opt).from(element).save();
+    };
+    return (props.appStatus === 'LOA Released' || props.appStatus === 'LOA Ack') ? <div className="view-back-button-container"><Tooltip title="Download LOA"><Button shape="round" onClick={downloadButtonHandler} icon={<DownloadOutlinedIcon />} size={size} /></Tooltip></div> : <div></div>;
 }
 
 const ActionCont = (props) => {
