@@ -29,8 +29,8 @@ const MGMTDash = () => {
         datasets: [
             {
                 data: [],
-                backgroundColor: ['#EF9A9A', '#F48FB1', '#CE93D8', '#9FA8DA', '#81D4FA'],
-                hoverBackgroundColor: ['#E53935', '#D81B60', '#8E24AA', '#3949AB', '#039BE5'],
+                backgroundColor: ['#E53935', '#D81B60', '#8E24AA', '#3949AB', '#039BE5'],
+                hoverBackgroundColor: ['#EF9A9A', '#F48FB1', '#CE93D8', '#9FA8DA', '#81D4FA'],
             },
         ],
     });
@@ -39,8 +39,8 @@ const MGMTDash = () => {
         datasets: [
             {
                 data: [],
-                backgroundColor: ['#80DEEA', '#80CBC4', '#E6EE9C', '#FFCC80', '#BCAAA4'],
-                hoverBackgroundColor: ['#00ACC1', '#00897B', '#C0CA33', '#FB8C00', '#6D4C41'],
+                backgroundColor: ['#00ACC1', '#00897B', '#C0CA33', '#FB8C00', '#6D4C41'],
+                hoverBackgroundColor: ['#80DEEA', '#80CBC4', '#E6EE9C', '#FFCC80', '#BCAAA4'],
             },
         ],
     });
@@ -127,8 +127,8 @@ const MGMTDash = () => {
                     datasets: [
                         {
                             data: pieValueArr,
-                            backgroundColor: ['#EF9A9A', '#F48FB1', '#CE93D8', '#9FA8DA', '#81D4FA'],
-                            hoverBackgroundColor: ['#E53935', '#D81B60', '#8E24AA', '#3949AB', '#039BE5'],
+                            backgroundColor: ['#E53935', '#D81B60', '#8E24AA', '#3949AB', '#039BE5'],
+                            hoverBackgroundColor: ['#EF9A9A', '#F48FB1', '#CE93D8', '#9FA8DA', '#81D4FA'],
                         },
                     ],
                 };
@@ -182,8 +182,8 @@ const MGMTDash = () => {
                     datasets: [
                         {
                             data: pieValueArr,
-                            backgroundColor: ['#80DEEA', '#80CBC4', '#E6EE9C', '#FFCC80', '#BCAAA4'],
-                            hoverBackgroundColor: ['#00ACC1', '#00897B', '#C0CA33', '#FB8C00', '#6D4C41'],
+                            backgroundColor: ['#00ACC1', '#00897B', '#C0CA33', '#FB8C00', '#6D4C41'],
+                            hoverBackgroundColor: ['#80DEEA', '#80CBC4', '#E6EE9C', '#FFCC80', '#BCAAA4'],
                         },
                     ],
                 };
