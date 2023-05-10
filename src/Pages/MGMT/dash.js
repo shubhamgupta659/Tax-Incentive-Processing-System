@@ -113,7 +113,7 @@ const Content1 = () => {
                 beginAtZero: true,
                 title: {
                     display: true,
-                    text: 'Fund Size (Million)', // Specify the Y-axis alias
+                    text: '(million)', // Specify the Y-axis alias
                 },
             },
             x: {
