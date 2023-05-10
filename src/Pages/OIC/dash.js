@@ -9,6 +9,7 @@ import {
   Tooltip,
   IconButton,
 } from '@mui/material';
+import { Collapse, Tabs } from 'antd';
 import { RemoveRedEye } from '@mui/icons-material';
 import ApprovalIcon from '@mui/icons-material/Approval';
 import AssignmentIcon from '@mui/icons-material/Assignment';
@@ -16,8 +17,24 @@ import axios from 'axios';
 import { AuthContext } from '../../AuthContext';
 import AppFormStatusPane from '../AppFormStatusPane';
 import CustomBgColorBox from '../../Components/CommonFunction/bgcolorbox';
+const { Panel } = Collapse;
+const { TabPane } = Tabs;
 
 const OICDash = () => {
+  return (<Tabs centered defaultActiveKey="1">
+    <TabPane tab="Application" key="1">
+      <Content1 />
+    </TabPane>
+    <TabPane tab="ARR" key="2" disabled>
+      <Content2 />
+    </TabPane>
+    <TabPane tab="Request" key="3" disabled>
+      <Content3 />
+    </TabPane>
+  </Tabs>);
+};
+
+const Content1 = () => {
   const { accessToken } = useContext(AuthContext);
   const [postResult, setPostResult] = useState(null);
   async function fetchDashData() {
@@ -95,38 +112,58 @@ const OICDash = () => {
   return (
     <div>
       <div><AppFormStatusPane parentData={postResult} stage='oicDash' /></div>
-      <div className='mui-table'>
-        <MaterialReactTable
-          displayColumnDefOptions={{
-            'mrt-row-actions': {
-              muiTableHeadCellProps: {
-                align: 'center',
-              },
-              size: 120,
-            },
-          }}
-          enableRowActions
-          columns={columns}
-          data={postResult === null ? [] : postResult}
-          enableColumnFilterModes
-          enableColumnOrdering
-          enableGrouping
-          enablePinning
-          enableRowSelection={false}
-          enableSelectAll={false}
-          initialState={{ showColumnFilters: true, density: 'compact', columnVisibility: { Select: false } }}
-          positionToolbarAlertBanner='bottom'
-          renderRowActions={({ row, table }) => (
-            <Box sx={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-              <ActionButton row={row.original} />
-            </Box>
-          )}
-        />
-      </div>
+      <Collapse className='chart-container' defaultActiveKey={['1']}>
+        <Panel header="Application Tracker" key="1">
+          <div className='mui-table'>
+            <MaterialReactTable
+              displayColumnDefOptions={{
+                'mrt-row-actions': {
+                  muiTableHeadCellProps: {
+                    align: 'center',
+                  },
+                  size: 120,
+                },
+              }}
+              enableRowActions
+              columns={columns}
+              data={postResult === null ? [] : postResult}
+              enableColumnFilterModes
+              enableColumnOrdering
+              enableGrouping
+              enablePinning
+              enableRowSelection={false}
+              enableSelectAll={false}
+              initialState={{ showColumnFilters: true, density: 'compact', columnVisibility: { Select: false } }}
+              positionToolbarAlertBanner='bottom'
+              renderRowActions={({ row, table }) => (
+                <Box sx={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                  <ActionButton row={row.original} />
+                </Box>
+              )}
+            />
+          </div>
+        </Panel>
+      </Collapse>
     </div>
 
   );
 };
+
+const Content2 = () => {
+  return (
+    <div>
+      <h2>Tab 2 Content</h2>
+      <p>This is the content of Tab 2.</p>
+    </div>);
+};
+
+const Content3 = () => {
+  return (<div>
+    <h2>Tab 3 Content</h2>
+    <p>This is the content of Tab 3.</p>
+  </div>);
+};
+
 
 const ActionButton = (props) => {
   const navigate = useNavigate();

@@ -12,12 +12,14 @@ import {
 import { Edit, RemoveRedEye } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
+import { Collapse } from 'antd';
 import { AuthContext } from '../../AuthContext';
 import AppFormStatusPane from '../AppFormStatusPane';
 import FIActionCards from '../FIActionCards';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import ApprovalIcon from '@mui/icons-material/Approval';
 import CustomBgColorBox from '../../Components/CommonFunction/bgcolorbox';
+const { Panel } = Collapse;
 
 
 function FIDash() {
@@ -86,7 +88,7 @@ function FIDash() {
             header: 'App Status',
             size: 100,
             Cell: ({ cell }) => (
-              <CustomBgColorBox appStatus={cell.getValue()}/>
+              <CustomBgColorBox appStatus={cell.getValue()} />
             ),
           }
         ],
@@ -100,34 +102,38 @@ function FIDash() {
     <div>
       <div><FIActionCards active={''} parentData={postResult} /></div>
       <div><AppFormStatusPane parentData={postResult} stage='fiDash' /></div>
-      <div className='mui-table'>
-        <MaterialReactTable
-          displayColumnDefOptions={{
-            'mrt-row-actions': {
-              muiTableHeadCellProps: {
-                align: 'center',
-              },
-              size: 120,
-            },
-          }}
-          enableRowActions
-          columns={columns}
-          data={postResult === null ? [] : postResult}
-          enableColumnFilterModes
-          enableColumnOrdering
-          enableGrouping
-          enablePinning
-          enableRowSelection={false}
-          enableSelectAll={false}
-          initialState={{ showColumnFilters: true, density: 'compact', columnVisibility: { Select: false } }}
-          positionToolbarAlertBanner='bottom'
-          renderRowActions={({ row, table }) => (
-            <Box sx={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-              <ActionButton row={row.original} />
-            </Box>
-          )}
-        />
-      </div>
+      <Collapse className='chart-container' defaultActiveKey={['1']}>
+        <Panel header="Application Tracker" key="1">
+          <div className='mui-table'>
+            <MaterialReactTable
+              displayColumnDefOptions={{
+                'mrt-row-actions': {
+                  muiTableHeadCellProps: {
+                    align: 'center',
+                  },
+                  size: 120,
+                },
+              }}
+              enableRowActions
+              columns={columns}
+              data={postResult === null ? [] : postResult}
+              enableColumnFilterModes
+              enableColumnOrdering
+              enableGrouping
+              enablePinning
+              enableRowSelection={false}
+              enableSelectAll={false}
+              initialState={{ showColumnFilters: true, density: 'compact', columnVisibility: { Select: false } }}
+              positionToolbarAlertBanner='bottom'
+              renderRowActions={({ row, table }) => (
+                <Box sx={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                  <ActionButton row={row.original} />
+                </Box>
+              )}
+            />
+          </div>
+        </Panel>
+      </Collapse>
     </div>
   );
 };

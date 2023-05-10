@@ -74,9 +74,10 @@ a {
 }
 
 .applogo {
-  color: #ffffff;
-  border: none;
+  display: flex;
   width: 250px;
+  gap: 15px;
+  border: none;
 }
 
 .user-profiles {
@@ -247,6 +248,13 @@ footer__links {
   margin: 10px !important;
 }
 
+.fi-action-container {
+  gap: 8px;
+  justify-content: center;
+  align-self: center;
+  margin: 10px !important;
+}
+
 .criclebox {
   font-weight: 700;
   height: 100%;
@@ -335,7 +343,7 @@ footer__links {
   padding: 10px;
 }
 
-.app-back-button-container{
+.app-back-button-container {
   display: flex;
   position: relative;
   top: 45px;
@@ -343,8 +351,7 @@ footer__links {
 }
 
 .mui-table {
-  margin: 25px;
-  width: 95vw;
+  margin: -16px;
 }
 
 .app-main-container {
@@ -433,8 +440,8 @@ footer__links {
   margin: 20px;
   background: #fafafa;
   border-radius: 8px;
-  min-height: 50vw;
-  height : 100%;
+  min-height: 40vw;
+  height: 100%;
 }
 
 .view-form-header {
@@ -474,14 +481,14 @@ footer__links {
 
 .loa-case-td {
   text-align: center;
-  width:50%;
+  width: 50%;
 }
 
 .loa-case-th {
   background-color: #474747;
   text-align: center;
   color: #ffffff;
-  width:50%;
+  width: 50%;
   font-weight: 700;
 }
 
@@ -572,9 +579,22 @@ footer__links {
   justify-content: space-between;
 }
 
-.icon-box{
-    display: flex;
-    min-height: 30px;
-    justify-content: center;
-    align-items: center;
+.icon-box {
+  display: flex;
+  min-height: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-container {
+  width: 95vw;
+  margin: 20px;
+}
+
+.indv-chart-title {
+  text-align: center;
+}
+
+.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense.css-g2tram-MuiToolbar-root {
+  border-radius: 0 0 8px 8px;
 }

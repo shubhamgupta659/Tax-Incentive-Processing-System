@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Col, Row, Collapse } from 'antd';
+import { Button, Row, Collapse } from 'antd';
 import { useNavigate } from "react-router-dom";
 
 
@@ -44,24 +44,9 @@ function FIActionCards(props) {
     };
     return (
         <div className='status-main-container'>
-            <Row className="rowgap-vbox" gutter={[15]}>
+            <Row className="fi-action-container" gutter={[15]}>
                 {navItems.map((c, index) => (
-                    <Col
-                        key={index}
-                        xl={2}
-                        className="mb-23"
-                        onClick={() => onNavClick(c)}
-                    >
-                        <Card bordered={true} className="fiactionbox">
-                            <div className="number" >
-                                <Row align="middle" gutter={[10, 0]}>
-                                    <Col className='card-content-container' xs={3}>
-                                        <div className="icon-box">{c.label}</div>
-                                    </Col>
-                                </Row>
-                            </div>
-                        </Card>
-                    </Col>
+                    <Button onClick={() => onNavClick(c)} type="primary">{c.label}</Button>
                 ))}
             </Row>
         </div >

@@ -62,7 +62,7 @@ function AppFormStatusPane({ parentData, stage }) {
     return (
         <div className='status-main-container'>
             <Collapse defaultActiveKey={['1']}>
-                <Panel header="Application Status Count" key="1">
+                <Panel header="Summary View" key="1">
                     <Row className="rowgap-vbox" gutter={[15]}>
                         {postResult.filter(o => {
                             if (stage === 'fiDash' && (o._id.appStatus === 'Submitted' || o._id.appStatus === 'FI Clarify' || o._id.appStatus === 'FI Clarified' || o._id.appStatus === 'OIC Released' || o._id.appStatus === 'Draft' || o._id.appStatus === 'Pending' || o._id.appStatus === 'LOA Released' || o._id.appStatus === 'LOA Ack')) {

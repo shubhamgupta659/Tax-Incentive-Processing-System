@@ -2,7 +2,7 @@ import React, { useMemo, useEffect, useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 //MRT Imports
 import MaterialReactTable from 'material-react-table';
-import { Collapse } from 'antd';
+import { Collapse, Tabs } from 'antd';
 //Material-UI Imports
 import {
     Box,
@@ -17,13 +17,29 @@ import { AuthContext } from '../../AuthContext';
 import AppFormStatusPane from '../AppFormStatusPane';
 import CustomBgColorBox from '../../Components/CommonFunction/bgcolorbox';
 import GetIncentiveTypeLabel from '../../Components/CommonFunction/incentivetype';
-import { Pie } from 'react-chartjs-2';
+import { Pie, Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 import 'chartjs-adapter-date-fns';
 import GetStructFundLabel from '../../Components/CommonFunction/structoffund';
 const { Panel } = Collapse;
+const { TabPane } = Tabs;
 
 const MGMTDash = () => {
+    return (<Tabs centered defaultActiveKey="1">
+        <TabPane tab="Application" key="1">
+            <Content1 />
+        </TabPane>
+        <TabPane tab="ARR" key="2" disabled>
+            <Content2 />
+        </TabPane>
+        <TabPane tab="Request" key="3" disabled>
+            <Content3 />
+        </TabPane>
+    </Tabs>);
+};
+
+
+const Content1 = () => {
     const [pieData, setPieData] = useState({
         labels: [],
         datasets: [
@@ -44,17 +60,73 @@ const MGMTDash = () => {
             },
         ],
     });
+    const [barFundPerfData, setBarFundPerfData] = useState({
+        labels: ['2020', '2021', '2022'],
+        datasets: [
+            {
+                label: 'Committed',
+                data: [4250, 5730, 6872],
+                backgroundColor: ['#3949AB'],
+                hoverBackgroundColor: ['#9FA8DA'],
+            },
+            {
+                label: 'Actual',
+                data: [4380, 5930, 7150],
+                backgroundColor: ['#F4511E'],
+                hoverBackgroundColor: ['#FFAB91'],
+            },
+        ],
+    });
     const chartContainerStyle = {
         display: 'flex',
         justifyContent: 'center',
-        height: '320px',
+        height: '100%',
         width: '100%',
         gap: '50px'
     };
 
     const options = {
         responsive: true,
+        plugins: {
+            legend: {
+                display: true, // Hide the legend
+            },
+            tooltip: {
+                enabled: true, // Disable tooltips
+            },
+        },
+        aspectRatio: 1,
     };
+
+    const barChartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true, // Hide the legend
+            },
+            tooltip: {
+                enabled: true, // Disable tooltips
+            },
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Fund Size (Million)', // Specify the Y-axis alias
+                },
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Year', // Specify the X-axis alias
+                },
+            },
+        },
+        aspectRatio: 1,
+    };
+
+
     const { accessToken } = useContext(AuthContext);
     const [postResult, setPostResult] = useState(null);
     async function fetchDashData() {
@@ -243,11 +315,15 @@ const MGMTDash = () => {
     return (
         <div>
             <Collapse className='chart-container' defaultActiveKey={['1']}>
-                <Panel header="Applications Stats" key="1">
+                <Panel header="Application Stats" key="1">
                     <div style={chartContainerStyle}>
                         <div className='indv-chart-container'>
                             <div className='indv-chart-title'><b>Incentive Type</b></div>
                             <div className='indv-chart-content'><Pie data={pieData} options={options} /></div>
+                        </div>
+                        <div className='indv-chart-container'>
+                            <div className='indv-chart-title'><b>Fund Size</b></div>
+                            <div className='indv-chart-content'><Bar data={barFundPerfData} options={barChartOptions} /></div>
                         </div>
                         <div className='indv-chart-container'>
                             <div className='indv-chart-title'><b>Fund Structure</b></div>
@@ -257,37 +333,56 @@ const MGMTDash = () => {
                 </Panel>
             </Collapse>
             <div><AppFormStatusPane parentData={postResult} stage='mgmtDash' /></div>
-            <div className='mui-table'>
-                <MaterialReactTable
-                    displayColumnDefOptions={{
-                        'mrt-row-actions': {
-                            muiTableHeadCellProps: {
-                                align: 'center',
-                            },
-                            size: 120,
-                        },
-                    }}
-                    enableRowActions
-                    columns={columns}
-                    data={postResult === null ? [] : postResult}
-                    enableColumnFilterModes
-                    enableColumnOrdering
-                    enableGrouping
-                    enablePinning
-                    enableRowSelection={false}
-                    enableSelectAll={false}
-                    initialState={{ showColumnFilters: true, density: 'compact', columnVisibility: { Select: false } }}
-                    positionToolbarAlertBanner='bottom'
-                    renderRowActions={({ row, table }) => (
-                        <Box sx={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-                            <ActionButton row={row.original} />
-                        </Box>
-                    )}
-                />
-            </div>
+            <Collapse className='chart-container' defaultActiveKey={['1']}>
+                <Panel header="Application Tracker" key="1">
+                    <div className='mui-table'>
+                        <MaterialReactTable
+                            displayColumnDefOptions={{
+                                'mrt-row-actions': {
+                                    muiTableHeadCellProps: {
+                                        align: 'center',
+                                    },
+                                    size: 120,
+                                },
+                            }}
+                            enableRowActions
+                            columns={columns}
+                            data={postResult === null ? [] : postResult}
+                            enableColumnFilterModes
+                            enableColumnOrdering
+                            enableGrouping
+                            enablePinning
+                            enableRowSelection={false}
+                            enableSelectAll={false}
+                            initialState={{ showColumnFilters: true, density: 'compact', columnVisibility: { Select: false } }}
+                            positionToolbarAlertBanner='bottom'
+                            renderRowActions={({ row, table }) => (
+                                <Box sx={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                                    <ActionButton row={row.original} />
+                                </Box>
+                            )}
+                        />
+                    </div>
+                </Panel>
+            </Collapse>
         </div >
 
     );
+};
+
+const Content2 = () => {
+    return (
+        <div>
+            <h2>Tab 2 Content</h2>
+            <p>This is the content of Tab 2.</p>
+        </div>);
+};
+
+const Content3 = () => {
+    return (<div>
+        <h2>Tab 3 Content</h2>
+        <p>This is the content of Tab 3.</p>
+    </div>);
 };
 
 const ActionButton = (props) => {
